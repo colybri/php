@@ -1,0 +1,17 @@
+---
+
+- name: "Set session cookie httponly: \"{{ php_session_cookie_httponly }}\""
+  tags: [configure, session]
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'session.cookie_httponly(\s)?='
+    line: 'session.cookie_httponly={{ php_session_cookie_httponly  }}'
+  notify: restart php
+
+- name: "Set session strict mode: \"{{ php_session_strict_mode }}\""
+  tags: [configure, session]
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'session.use_strict_mode(\s)?='
+    line: 'session.use_strict_mode = {{ php_session_strict_mode  }}'
+  notify: restart php

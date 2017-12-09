@@ -1,0 +1,36 @@
+---
+
+- name: "Set register globals: \"{{ php_register_globals }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'register_globals(\s)?='
+    line: 'register_globals = {{ php_register_globals }}'
+  notify: restart php
+
+- name: "Allow url fopen: \"{{ php_allow_url_fopen }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'allow_url_fopen(\s)?='
+    line: 'allow_url_fopen = {{ php_allow_url_fopen }}'
+  notify: restart php
+
+- name: "Securing php: disabling functions: \"{{ php_disable_functions }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'disable_functions(\s)?='
+    line: 'disable_functions={{ php_disable_functions }}'
+  notify: restart php
+
+- name: "Set magic gpc quotes: \"{{ php_magic_quotes_gpc }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'magic_quotes_gpc(\s)?='
+    line: 'magic_quotes_gpc = {{ php_magic_quotes_gpc }}'
+  notify: restart php
+
+- name: "Set magic sybase quotes: \"{{ php_magic_quotes_sybase }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'magic_quotes_sybase(\s)?='
+    line: 'magic_quotes_sybase = {{ php_magic_quotes_sybase }}'
+  notify: restart php

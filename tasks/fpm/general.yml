@@ -1,0 +1,38 @@
+---
+  
+- name: "Set upload tmp dir: \"{{ php_upload_tmp_dir }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'upload_tmp_dir(\s)?='
+    line: 'upload_tmp_dir = {{ php_upload_tmp_dir }}'
+  when: php_upload_tmp_dir is defined
+  notify: restart php
+
+- name: "Set post max size: \"{{ php_post_max_size }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'post_max_size(\s)?='
+    line: 'post_max_size = {{ php_post_max_size }}'
+  notify: restart php
+
+- name: "Set upload max filesize: \"{{ php_upload_max_filesize }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'upload_max_filesize(\s)?='
+    line: 'upload_max_filesize = {{ php_upload_max_filesize }}'
+    create: yes
+  notify: restart php
+
+- name: "Set memory limit: \"{{ php_memory_limit }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'memory_limit(\s)?='
+    line: 'memory_limit = {{ php_memory_limit }}'
+  notify: restart php
+
+- name: "Set max execution time: \"{{ php_max_execution_time }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'max_execution_time(\s)?='
+    line: 'max_execution_time = {{ php_max_execution_time }}'
+  notify: restart php

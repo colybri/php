@@ -1,0 +1,46 @@
+---
+
+  php_ppa: "ppa:ondrej/php"
+  php_timezone: Europe/Madrid
+  php_upload_max_filesize: "40M"
+  php_post_max_size: "40M"
+  php_memory_limit: "1024M"
+  php_max_execution_time: 60
+  php_allow_url_fopen: 0
+  php_register_globals: Off
+  php_display_errors: On
+  php_display_startup_errors: On
+  php_disable_functions: exec,shell_exec,passthru,system,popen,proc_open
+  php_error_reporting: E_ALL
+  php_magic_quotes_gpc: Off
+  php_magic_quotes_sybase: Off
+
+  php_session_cookie_httponly: 0
+  php_session_strict_mode: 1
+
+  php_opcache_enabled: 1
+  php_opcache_revalidate_freq: 2592000
+  php_opcache_validate_timestamps: 1
+  php_opcache_max_accelerated_files: 20000
+  php_opcache_memory_consumption: 192
+  php_opcache_interned_strings_buffer: 16
+  php_opcache_fast_shutdown: 1
+
+  php_packages:
+    - php{{ php_version | default(7.1) }}-common
+    - php{{ php_version | default(7.1) }}-bcmath
+    - php{{ php_version | default(7.1) }}-ctype
+    - php{{ php_version | default(7.1) }}-curl
+    - php{{ php_version | default(7.1) }}-dom
+    - php{{ php_version | default(7.1) }}-gd
+    - php{{ php_version | default(7.1) }}-intl
+    - php{{ php_version | default(7.1) }}-mbstring
+    - php{{ php_version | default(7.1) }}-mcrypt
+    - php{{ php_version | default(7.1) }}-mysql
+    - php{{ php_version | default(7.1) }}-xml
+    - php{{ php_version | default(7.1) }}-soap
+    - php{{ php_version | default(7.1) }}-xsl
+    - php{{ php_version | default(7.1) }}-zip
+    - php{{ php_version | default(7.1) }}-json
+    - php{{ php_version | default(7.1) }}-iconv
+    - php{{ php_version | default(7.1) }}-fpm

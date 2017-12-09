@@ -1,0 +1,7 @@
+---
+
+- name: "Set php command line tools timezone: \"{{ php_timezone }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'date.timezone ='
+    line: 'date.timezone = {{ php_timezone }}'

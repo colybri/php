@@ -1,0 +1,7 @@
+---
+
+- name: "Disabling php command line tools opcache"
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'opcache.enable_cli='
+    line: 'opcache.enable_cli=0'

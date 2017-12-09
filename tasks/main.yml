@@ -1,0 +1,34 @@
+---
+
+- name: Add repository for Ubuntu
+  tags: [install]
+  become: yes
+  apt_repository: repo={{ php_ppa }}
+  when: ansible_distribution|lower == "ubuntu"
+
+- name: Update apt
+  tags: [install]
+  become: yes
+  apt: update_cache=yes
+
+
+- name: Install PHP
+  tags: [install]
+  become: yes
+  package:
+    name: "php{{ php_version | default(7.1) }}"
+    state: latest
+  failed_when: false
+
+
+- name: Install PHP Packages
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ php_packages }}"
+  failed_when: false
+  notify: restart php
+
+
+- import_tasks: config.yml

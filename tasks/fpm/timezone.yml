@@ -1,0 +1,8 @@
+---
+
+- name: "Configuring timezone: \"{{ php_timezone }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'date.timezone ='
+    line: 'date.timezone = {{ php_timezone  }}'
+  notify: restart php

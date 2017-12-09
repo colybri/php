@@ -1,0 +1,55 @@
+---
+- name: "Opcache enabled: \"{{ php_opcache_enabled }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'opcache.enable='
+    line: 'opcache.enable={{ php_opcache_enabled }}'
+    insertafter: "^[opcache]"
+  notify: restart php
+
+- name: "Set Opcache validate timestamps: \"{{ php_opcache_validate_timestamps }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'opcache.validate_timestamps='
+    line: 'opcache.validate_timestamps={{ php_opcache_validate_timestamps }}'
+    insertafter: "^[opcache]"
+  notify: restart php
+
+- name: "Set Opcache max accelerated files: \"{{ php_opcache_max_accelerated_files }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'opcache.max_accelerated_files='
+    line: 'opcache.max_accelerated_files={{ php_opcache_max_accelerated_files }}'
+    insertafter: "^[opcache]"
+  notify: restart php
+
+- name: "Set Opcache memory consumption: \"{{ php_opcache_memory_consumption }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'opcache.memory_consumption='
+    line: 'opcache.memory_consumption={{ php_opcache_memory_consumption }}'
+  notify: restart php
+
+- name: "Set Opcache interned strings buffer: \"{{ php_opcache_interned_strings_buffer }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'opcache.interned_strings_buffer='
+    line: 'opcache.interned_strings_buffer={{ php_opcache_interned_strings_buffer }}'
+    insertafter: "^[opcache]"
+  notify: restart php
+
+- name: "Set Opcache frequency: \"{{ php_opcache_revalidate_freq }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'opcache.revalidate_freq='
+    line: 'opcache.revalidate_freq={{ php_opcache_revalidate_freq }}'
+    insertafter: "^[opcache]"
+  notify: restart php
+
+- name: "Set Opcache fast shutdown: \"{{ php_opcache_fast_shutdown }}\""
+  lineinfile:
+    dest: "{{ item }}"
+    regexp: 'opcache.fast_shutdown='
+    line: 'opcache.fast_shutdown={{ php_opcache_fast_shutdown }}'
+    insertafter: "^[opcache]"
+  notify: restart php

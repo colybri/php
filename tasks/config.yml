@@ -1,0 +1,84 @@
+---
+
+- shell: "php -r \"echo phpversion();\""
+  tags:
+    - always
+  register: version
+  when: php_version  is undefined
+
+- set_fact:
+  tags:
+    - always
+  php_version: "{{ version.stdout | regex_search('^([0-9])\\.([0-9])')  }}"
+  when:  php_version is undefined
+
+- name: Registering php paths
+  tags:
+    - always
+  shell: "find / -name 'php.ini' 2> /dev/null"
+  register: paths
+
+- block:
+  - tags: [configure]
+    include_tasks: fpm/general.yml
+    with_items:
+      - "{{ paths.stdout_lines }}"
+    when:
+      - item is search('{{ php_version }}')
+      - item is not search('cli')
+
+  - tags: [configure, timezone]
+    include_tasks: fpm/timezone.yml
+    with_items:
+      - "{{ paths.stdout_lines }}"
+    when:
+      - item is search('{{ php_version }}')
+      - item is not search('cli')
+
+  - tags: [configure, session]
+    include_tasks: fpm/session.yml
+    with_items:
+      - "{{ paths.stdout_lines }}"
+    when:
+      - item is search('{{ php_version }}')
+      - item is not search('cli')
+
+  - tags: [configure, secure]
+    include_tasks: fpm/secure.yml
+    with_items:
+      - "{{ paths.stdout_lines }}"
+    when:
+      - item is search('{{ php_version }}')
+      - item is not search('cli')
+
+  - tags: [configure, errors]
+    include_tasks: fpm/errors.yml
+    with_items:
+      - "{{ paths.stdout_lines }}"
+    when:
+      - item is search('{{ php_version }}')
+      - item is not search('cli')
+
+  - tags: [configure, opcache]
+    include_tasks: fpm/opcache.yml
+    with_items:
+      - "{{ paths.stdout_lines }}"
+    when:
+      - item is search('{{ php_version }}')
+      - item is not search('cli')
+
+  - tags: [configure, opcache]
+    include_tasks: cli/opcache.yml
+    with_items:
+      - "{{ paths.stdout_lines }}"
+    when:
+      - item is search('{{ php_version }}')
+      - item is search('cli')
+
+  - tags: [configure, timezome]
+    include_tasks: cli/timezone.yml
+    with_items:
+      - "{{ paths.stdout_lines }}"
+    when:
+      - item is search('{{ php_version }}')
+      - item is search('cli')

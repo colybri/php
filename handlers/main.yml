@@ -1,0 +1,13 @@
+
+---
+- name: restart php
+  service:
+    name: "{{ item }}"
+    enabled: yes
+    state: restarted
+  become: yes
+  with_items:
+    - php{{ php_version }}-fpm
+    - apache2
+    - apache
+  failed_when: false

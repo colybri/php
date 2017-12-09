@@ -1,0 +1,26 @@
+---
+
+galaxy_info:
+  author: Mario J. Lopez
+  company: ColibriWebWork
+  description: Deploy for install or configure any php version for Nginx or Apache interface on Ubuntu distro
+  license: MIT
+  min_ansible_version: 2.0
+  platforms:
+    - name: Ubuntu
+      versions:
+      - precise
+      - trusty
+      - xenial
+      - zesty
+      - artful
+  galaxy_tags:
+    - php
+    - php5.6
+    - php7
+    - php7.1
+    - web
+    - nginx
+    - apache
+
+dependencies: []
